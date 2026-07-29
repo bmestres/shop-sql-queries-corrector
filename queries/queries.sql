@@ -308,7 +308,7 @@ p.precio,
 f.nombre AS 'fabricante'
 FROM producto p
 JOIN fabricante f ON codigo_fabricante = f.codigo
-WHERE precio > 180;
+WHERE precio >= 180;
 
 -- ---------------------------------------------------------------------
 -- 33. Returns a list with the code and name of manufacturer, only those 
@@ -405,6 +405,7 @@ LIMIT 1;
 SELECT 
 producto.codigo,
 producto.nombre,
+producto.precio,
 producto.codigo_fabricante
 FROM producto
 WHERE precio > (
