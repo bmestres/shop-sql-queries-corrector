@@ -1,14 +1,14 @@
 -- -----------------------------------------------------------------
 -- 1. List the name of all products that exist in the product table.
 -- -----------------------------------------------------------------
-SELECT producto.nombre AS Nombre 
+SELECT producto.nombre
 FROM producto;
 -- -----------------------------------------------------------------
 -- 2. List the name and prices of all products in the product table.
 -- -----------------------------------------------------------------
 SELECT 
-producto.nombre AS Nombre,
-producto.precio AS Precio
+producto.nombre,
+producto.precio
 FROM producto;
 -- ----------------------------------------------
 -- 3. List all the columns of the product table.
