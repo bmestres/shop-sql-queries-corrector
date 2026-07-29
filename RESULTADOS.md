@@ -2,60 +2,86 @@
 
 
 ## 📈 Resumen
-✅ 7 correctas de 41 queries
+✅ 23 correctas de 41 queries
 
-## ✅ Query 1: Correcto
-
-⏱ Tiempo: 0.37 ms
-🔍 No se usó ningún índice en esta consulta.
-
----
-
-## ✅ Query 2: Correcto
-
-⏱ Tiempo: 0.28 ms
-🔍 No se usó ningún índice en esta consulta.
-
----
-
-## ✅ Query 3: Correcto
-
-⏱ Tiempo: 0.27 ms
-🔍 No se usó ningún índice en esta consulta.
-
-🚨 **Problemas detectados:**
-⚠️ Evitar `SELECT *`. Usar solo las columnas necesarias.
-
----
-
-## ❌ Query 4: Incorrecto
+## ❌ Query 1: Incorrecto
 ```diff
 --- 
 +++ 
 @@ -1,4 +1,4 @@
--nombre | precio_eur | precio_usd
-+nombre | precio | (producto.precio * 1)
- Disco duro SATA3 1TB | 86.99 | 86.99
- Memoria RAM DDR4 8GB | 120.00 | 120.00
- Disco SSD 1 TB | 150.99 | 150.99
+-nombre
++Nombre
+ Disco duro SATA3 1TB
+ Memoria RAM DDR4 8GB
+ Disco SSD 1 TB
 ```
 
-⏱ Tiempo: 0.29 ms
+⏱ Tiempo: 0.34 ms
 🔍 No se usó ningún índice en esta consulta.
 
 ---
 
-## ❌ Query 5: Incorrecto
+## ❌ Query 2: Incorrecto
 ```diff
 --- 
 +++ 
 @@ -1,4 +1,4 @@
--nom del producte | euros | dòlars
-+Nombre | Precio (€) | Precio ($)
- Disco duro SATA3 1TB | 86.99 | 95.69
- Memoria RAM DDR4 8GB | 120.00 | 132.00
- Disco SSD 1 TB | 150.99 | 166.09
+-nombre | precio
++Nombre | Precio
+ Disco duro SATA3 1TB | 86.99
+ Memoria RAM DDR4 8GB | 120.00
+ Disco SSD 1 TB | 150.99
 ```
+
+⏱ Tiempo: 0.30 ms
+🔍 No se usó ningún índice en esta consulta.
+
+---
+
+## ❌ Query 3: Incorrecto
+```diff
+--- 
++++ 
+@@ -1,12 +1,12 @@
+-codigo | nombre | precio | codigo_fabricante
+-1.00 | Disco duro SATA3 1TB | 86.99 | 5.00
+-2.00 | Memoria RAM DDR4 8GB | 120.00 | 6.00
+-3.00 | Disco SSD 1 TB | 150.99 | 4.00
+-4.00 | GeForce GTX 1050Ti | 185.00 | 7.00
+-5.00 | GeForce GTX 1080 Xtreme | 755.00 | 6.00
+-6.00 | Monitor 24 LED Full HD | 202.00 | 1.00
+-7.00 | Monitor 27 LED Full HD | 245.99 | 1.00
+-8.00 | Portátil Yoga 520 | 559.00 | 2.00
+-9.00 | Portátil Ideapd 320 | 444.00 | 2.00
+-10.00 | Impresora HP Deskjet 3720 | 59.99 | 3.00
+-11.00 | Impresora HP Laserjet Pro M26nw | 180.00 | 3.00
++nombre | precio
++Disco duro SATA3 1TB | 86.99
++Memoria RAM DDR4 8GB | 120.00
++Disco SSD 1 TB | 150.99
++GeForce GTX 1050Ti | 185.00
++GeForce GTX 1080 Xtreme | 755.00
++Monitor 24 LED Full HD | 202.00
++Monitor 27 LED Full HD | 245.99
++Portátil Yoga 520 | 559.00
++Portátil Ideapd 320 | 444.00
++Impresora HP Deskjet 3720 | 59.99
++Impresora HP Laserjet Pro M26nw | 180.00
+```
+
+⏱ Tiempo: 0.23 ms
+🔍 No se usó ningún índice en esta consulta.
+
+---
+
+## ✅ Query 4: Correcto
+
+⏱ Tiempo: 0.26 ms
+🔍 No se usó ningún índice en esta consulta.
+
+---
+
+## ✅ Query 5: Correcto
 
 ⏱ Tiempo: 0.30 ms
 🔍 No se usó ningún índice en esta consulta.
@@ -68,13 +94,14 @@
 +++ 
 @@ -1,4 +1,4 @@
 -nombre | precio
-+Producto | precio
++UPPER
+(producto.nombre) | precio
  DISCO DURO SATA3 1TB | 86.99
  MEMORIA RAM DDR4 8GB | 120.00
  DISCO SSD 1 TB | 150.99
 ```
 
-⏱ Tiempo: 0.27 ms
+⏱ Tiempo: 0.25 ms
 🔍 No se usó ningún índice en esta consulta.
 
 ---
@@ -85,30 +112,21 @@
 +++ 
 @@ -1,4 +1,4 @@
 -nombre | precio
-+Producto | precio
++LOWER
+(producto.nombre) | precio
  disco duro sata3 1tb | 86.99
  memoria ram ddr4 8gb | 120.00
  disco ssd 1 tb | 150.99
 ```
 
-⏱ Tiempo: 0.27 ms
+⏱ Tiempo: 0.25 ms
 🔍 No se usó ningún índice en esta consulta.
 
 ---
 
-## ❌ Query 8: Incorrecto
-```diff
---- 
-+++ 
-@@ -1,4 +1,4 @@
--nombre | iniciales
-+Nombre | Initial
- Asus | AS
- Lenovo | LE
- Hewlett-Packard | HE
-```
+## ✅ Query 8: Correcto
 
-⏱ Tiempo: 0.29 ms
+⏱ Tiempo: 0.27 ms
 🔍 No se usó ningún índice en esta consulta.
 
 ---
@@ -119,13 +137,13 @@
 +++ 
 @@ -1,4 +1,4 @@
 -nombre | precio
-+Nombre | Precio redeado
++nombre | ROUND(precio, 0)
  Disco duro SATA3 1TB | 87.00
  Memoria RAM DDR4 8GB | 120.00
  Disco SSD 1 TB | 151.00
 ```
 
-⏱ Tiempo: 0.34 ms
+⏱ Tiempo: 0.25 ms
 🔍 No se usó ningún índice en esta consulta.
 
 ---
@@ -136,13 +154,13 @@
 +++ 
 @@ -1,4 +1,4 @@
 -nombre | precio truncado
-+Nombre | Precio truncado
++Nombre | precio truncado
  Disco duro SATA3 1TB | 86.00
  Memoria RAM DDR4 8GB | 120.00
  Disco SSD 1 TB | 150.00
 ```
 
-⏱ Tiempo: 0.32 ms
+⏱ Tiempo: 0.27 ms
 🔍 No se usó ningún índice en esta consulta.
 
 ---
@@ -151,31 +169,24 @@
 ```diff
 --- 
 +++ 
-@@ -1,12 +1,12 @@
--codigo_fabricante
--1.00
-+Código del fabricante
-+6.00
-+7.00
-+8.00
-+9.00
-+10.00
-+11.00
-+3.00
+@@ -1,12 +1,10 @@
+ codigo_fabricante
  1.00
+-1.00
  2.00
 -2.00
 -3.00
--3.00
-+5.00
+ 3.00
  4.00
--5.00
+ 5.00
+ 6.00
 -6.00
--6.00
--7.00
+ 7.00
++8.00
++9.00
 ```
 
-⏱ Tiempo: 0.33 ms
+⏱ Tiempo: 0.28 ms
 🔍 No se usó ningún índice en esta consulta.
 
 ---
@@ -186,7 +197,7 @@
 +++ 
 @@ -1,8 +1,12 @@
 -codigo_fabricante
-+Código del fabricante
++código_fabricante
 +6.00
 +7.00
 +8.00
@@ -204,41 +215,21 @@
 -7.00
 ```
 
-⏱ Tiempo: 0.36 ms
+⏱ Tiempo: 0.26 ms
 ✅ Se usó índice(s) en la consulta: PRIMARY,codigo_fabricante
 
 ---
 
-## ❌ Query 13: Incorrecto
-```diff
---- 
-+++ 
-@@ -1,4 +1,4 @@
--nombre
-+Nombre del fabricante (↑)
- Asus
- Crucial
- Gigabyte
-```
+## ✅ Query 13: Correcto
 
-⏱ Tiempo: 0.32 ms
+⏱ Tiempo: 0.24 ms
 🔍 No se usó ningún índice en esta consulta.
 
 ---
 
-## ❌ Query 14: Incorrecto
-```diff
---- 
-+++ 
-@@ -1,4 +1,4 @@
--nombre
-+Nombre del fabricante (↓)
- Xiaomi
- Seagate
- Samsung
-```
+## ✅ Query 14: Correcto
 
-⏱ Tiempo: 0.31 ms
+⏱ Tiempo: 0.24 ms
 🔍 No se usó ningún índice en esta consulta.
 
 ---
@@ -247,50 +238,55 @@
 ```diff
 --- 
 +++ 
-@@ -1,4 +1,4 @@
+@@ -1,12 +1,12 @@
 -nombre | precio
-+Producto | Precio
- Disco duro SATA3 1TB | 86.99
- Disco SSD 1 TB | 150.99
- GeForce GTX 1050Ti | 185.00
+-Disco duro SATA3 1TB | 86.99
+-Disco SSD 1 TB | 150.99
+-GeForce GTX 1050Ti | 185.00
+-GeForce GTX 1080 Xtreme | 755.00
+-Impresora HP Deskjet 3720 | 59.99
+-Impresora HP Laserjet Pro M26nw | 180.00
+-Memoria RAM DDR4 8GB | 120.00
+-Monitor 24 LED Full HD | 202.00
+-Monitor 27 LED Full HD | 245.99
+-Portátil Ideapd 320 | 444.00
+-Portátil Yoga 520 | 559.00
++precio
++Disco duro SATA3 1TB
++Disco SSD 1 TB
++GeForce GTX 1050Ti
++GeForce GTX 1080 Xtreme
++Impresora HP Deskjet 3720
++Impresora HP Laserjet Pro M26nw
++Memoria RAM DDR4 8GB
++Monitor 24 LED Full HD
++Monitor 27 LED Full HD
++Portátil Ideapd 320
++Portátil Yoga 520
 ```
 
-⏱ Tiempo: 0.33 ms
+⏱ Tiempo: 0.25 ms
 🔍 No se usó ningún índice en esta consulta.
 
 ---
 
 ## ✅ Query 16: Correcto
 
-⏱ Tiempo: 0.32 ms
+⏱ Tiempo: 0.23 ms
 🔍 No se usó ningún índice en esta consulta.
-
-🚨 **Problemas detectados:**
-⚠️ Evitar `SELECT *`. Usar solo las columnas necesarias.
 
 ---
 
 ## ✅ Query 17: Correcto
 
-⏱ Tiempo: 0.31 ms
+⏱ Tiempo: 0.25 ms
 🔍 No se usó ningún índice en esta consulta.
-
-🚨 **Problemas detectados:**
-⚠️ Evitar `SELECT *`. Usar solo las columnas necesarias.
 
 ---
 
-## ❌ Query 18: Incorrecto
-```diff
---- 
-+++ 
-@@ -1,2 +1,2 @@
--nombre | precio
-+Producto mas económico | precio
- Impresora HP Deskjet 3720 | 59.99
-```
+## ✅ Query 18: Correcto
 
-⏱ Tiempo: 0.33 ms
+⏱ Tiempo: 0.32 ms
 🔍 No se usó ningún índice en esta consulta.
 
 ---
@@ -301,25 +297,17 @@
 +++ 
 @@ -1,2 +1,2 @@
 -nombre | precio
-+Producto mas caro | precio
- GeForce GTX 1080 Xtreme | 755.00
+-GeForce GTX 1080 Xtreme | 755.00
++precio
++Portátil Yoga 520
 ```
 
-⏱ Tiempo: 0.32 ms
+⏱ Tiempo: 0.33 ms
 🔍 No se usó ningún índice en esta consulta.
 
 ---
 
-## ❌ Query 20: Incorrecto
-```diff
---- 
-+++ 
-@@ -1,3 +1,3 @@
--nombre
-+Productos Código 2
- Portátil Yoga 520
- Portátil Ideapd 320
-```
+## ✅ Query 20: Correcto
 
 ⏱ Tiempo: 0.33 ms
 ✅ Se usó índice(s) en la consulta: codigo_fabricante
@@ -330,15 +318,34 @@
 ```diff
 --- 
 +++ 
-@@ -1,4 +1,4 @@
+@@ -1,12 +1,12 @@
 -nombre | precio | nombre del fabricante
-+Producto | Precio | Nombre fabricante
- Disco duro SATA3 1TB | 86.99 | Seagate
- Memoria RAM DDR4 8GB | 120.00 | Crucial
- Disco SSD 1 TB | 150.99 | Samsung
+-Disco duro SATA3 1TB | 86.99 | Seagate
+-Memoria RAM DDR4 8GB | 120.00 | Crucial
+-Disco SSD 1 TB | 150.99 | Samsung
+-GeForce GTX 1050Ti | 185.00 | Gigabyte
+-GeForce GTX 1080 Xtreme | 755.00 | Crucial
+-Monitor 24 LED Full HD | 202.00 | Asus
+-Monitor 27 LED Full HD | 245.99 | Asus
+-Portátil Yoga 520 | 559.00 | Lenovo
+-Portátil Ideapd 320 | 444.00 | Lenovo
+-Impresora HP Deskjet 3720 | 59.99 | Hewlett-Packard
+-Impresora HP Laserjet Pro M26nw | 180.00 | Hewlett-Packard
++precio | nombre del fabricante
++Disco duro SATA3 1TB | Seagate
++Memoria RAM DDR4 8GB | Crucial
++Disco SSD 1 TB | Samsung
++GeForce GTX 1050Ti | Gigabyte
++GeForce GTX 1080 Xtreme | Crucial
++Monitor 24 LED Full HD | Asus
++Monitor 27 LED Full HD | Asus
++Portátil Yoga 520 | Lenovo
++Portátil Ideapd 320 | Lenovo
++Impresora HP Deskjet 3720 | Hewlett-Packard
++Impresora HP Laserjet Pro M26nw | Hewlett-Packard
 ```
 
-⏱ Tiempo: 0.35 ms
+⏱ Tiempo: 0.33 ms
 ✅ Se usó índice(s) en la consulta: codigo_fabricante, PRIMARY
 
 ---
@@ -348,8 +355,7 @@
 --- 
 +++ 
 @@ -1,12 +1,12 @@
--nombre | precio | nombre del fabricante
-+Producto | Precio | Fabricante
+ nombre | precio | nombre del fabricante
 +Disco duro SATA3 1TB | 86.99 | Seagate
 +Disco SSD 1 TB | 150.99 | Samsung
 +GeForce GTX 1050Ti | 185.00 | Gigabyte
@@ -371,70 +377,35 @@
 -Disco duro SATA3 1TB | 86.99 | Seagate
 ```
 
-⏱ Tiempo: 0.36 ms
-✅ Se usó índice(s) en la consulta: codigo_fabricante, PRIMARY
-
----
-
-## ❌ Query 23: Incorrecto
-```diff
---- 
-+++ 
-@@ -1,4 +1,4 @@
--codigo | nombre | codigo fabricante | nombre fabricante
-+Código Producto | Nombre Producto | Código Fabricante | Nombre Fabricante
- 1.00 | Disco duro SATA3 1TB | 5.00 | Seagate
- 2.00 | Memoria RAM DDR4 8GB | 6.00 | Crucial
- 3.00 | Disco SSD 1 TB | 4.00 | Samsung
-```
-
-⏱ Tiempo: 0.34 ms
-✅ Se usó índice(s) en la consulta: codigo_fabricante, PRIMARY
-
----
-
-## ❌ Query 24: Incorrecto
-```diff
---- 
-+++ 
-@@ -1,2 +1,2 @@
--nombre | precio | fabricant
-+Producto | Precio | Fabricante
- Impresora HP Deskjet 3720 | 59.99 | Hewlett-Packard
-```
-
-⏱ Tiempo: 0.34 ms
-✅ Se usó índice(s) en la consulta: codigo_fabricante, PRIMARY
-
----
-
-## ❌ Query 25: Incorrecto
-```diff
---- 
-+++ 
-@@ -1,2 +1,2 @@
--nombre | precio | fabricante
-+Producto | Precio | Fabricante
- GeForce GTX 1080 Xtreme | 755.00 | Crucial
-```
-
-⏱ Tiempo: 0.34 ms
-✅ Se usó índice(s) en la consulta: codigo_fabricante, PRIMARY
-
----
-
-## ❌ Query 26: Incorrecto
-```diff
---- 
-+++ 
-@@ -1,3 +1,3 @@
--nombre | precio
-+Producto | Precio
- Portátil Yoga 520 | 559.00
- Portátil Ideapd 320 | 444.00
-```
-
 ⏱ Tiempo: 0.35 ms
+✅ Se usó índice(s) en la consulta: codigo_fabricante, PRIMARY
+
+---
+
+## ✅ Query 23: Correcto
+
+⏱ Tiempo: 0.32 ms
+✅ Se usó índice(s) en la consulta: codigo_fabricante, PRIMARY
+
+---
+
+## ✅ Query 24: Correcto
+
+⏱ Tiempo: 0.34 ms
+✅ Se usó índice(s) en la consulta: codigo_fabricante, PRIMARY
+
+---
+
+## ✅ Query 25: Correcto
+
+⏱ Tiempo: 0.32 ms
+✅ Se usó índice(s) en la consulta: codigo_fabricante, PRIMARY
+
+---
+
+## ✅ Query 26: Correcto
+
+⏱ Tiempo: 0.32 ms
 ✅ Se usó índice(s) en la consulta: codigo_fabricante, PRIMARY
 
 ---
@@ -444,8 +415,7 @@
 --- 
 +++ 
 @@ -1,2 +1,6 @@
--nombre | precio
-+Producto | Precio
+ nombre | precio
  GeForce GTX 1080 Xtreme | 755.00
 +Monitor 24 LED Full HD | 202.00
 +Monitor 27 LED Full HD | 245.99
@@ -453,41 +423,21 @@
 +Portátil Ideapd 320 | 444.00
 ```
 
-⏱ Tiempo: 0.33 ms
+⏱ Tiempo: 0.32 ms
 🔍 No se usó ningún índice en esta consulta.
 
 ---
 
-## ❌ Query 28: Incorrecto
-```diff
---- 
-+++ 
-@@ -1,4 +1,4 @@
--nombre | precio | fabricante
-+Producto | Precio | Fabricante
- Disco duro SATA3 1TB | 86.99 | Seagate
- Monitor 24 LED Full HD | 202.00 | Asus
- Monitor 27 LED Full HD | 245.99 | Asus
-```
+## ✅ Query 28: Correcto
 
-⏱ Tiempo: 0.36 ms
+⏱ Tiempo: 0.38 ms
 ✅ Se usó índice(s) en la consulta: codigo_fabricante, PRIMARY
 
 ---
 
-## ❌ Query 29: Incorrecto
-```diff
---- 
-+++ 
-@@ -1,4 +1,4 @@
--nombre | precio | fabricante
-+Producto | Precio | Fabricante
- Disco duro SATA3 1TB | 86.99 | Seagate
- Monitor 24 LED Full HD | 202.00 | Asus
- Monitor 27 LED Full HD | 245.99 | Asus
-```
+## ✅ Query 29: Correcto
 
-⏱ Tiempo: 0.35 ms
+⏱ Tiempo: 0.29 ms
 ✅ Se usó índice(s) en la consulta: codigo_fabricante, PRIMARY
 
 🚨 **Problemas detectados:**
@@ -495,34 +445,16 @@
 
 ---
 
-## ❌ Query 30: Incorrecto
-```diff
---- 
-+++ 
-@@ -1,3 +1,3 @@
--nombre | precio | fabricante
-+Producto | Precio | Fabricante
- Disco duro SATA3 1TB | 86.99 | Seagate
- GeForce GTX 1050Ti | 185.00 | Gigabyte
-```
+## ✅ Query 30: Correcto
 
-⏱ Tiempo: 0.36 ms
+⏱ Tiempo: 0.27 ms
 ✅ Se usó índice(s) en la consulta: codigo_fabricante, PRIMARY
 
 ---
 
-## ❌ Query 31: Incorrecto
-```diff
---- 
-+++ 
-@@ -1,3 +1,3 @@
--nombre | precio | fabricante
-+Producto | Precio | nombre
- Impresora HP Deskjet 3720 | 59.99 | Hewlett-Packard
- Impresora HP Laserjet Pro M26nw | 180.00 | Hewlett-Packard
-```
+## ✅ Query 31: Correcto
 
-⏱ Tiempo: 0.37 ms
+⏱ Tiempo: 0.28 ms
 ✅ Se usó índice(s) en la consulta: codigo_fabricante, PRIMARY
 
 ---
@@ -532,96 +464,56 @@
 --- 
 +++ 
 @@ -1,8 +1,8 @@
--nombre | precio | fabricante
--GeForce GTX 1080 Xtreme | 755.00 | Crucial
--Portátil Yoga 520 | 559.00 | Lenovo
--Portátil Ideapd 320 | 444.00 | Lenovo
+ nombre | precio | fabricante
++GeForce GTX 1050Ti | 185.00 | Gigabyte
+ GeForce GTX 1080 Xtreme | 755.00 | Crucial
++Monitor 24 LED Full HD | 202.00 | Asus
++Monitor 27 LED Full HD | 245.99 | Asus
+ Portátil Yoga 520 | 559.00 | Lenovo
+ Portátil Ideapd 320 | 444.00 | Lenovo
 -Monitor 27 LED Full HD | 245.99 | Asus
 -Monitor 24 LED Full HD | 202.00 | Asus
 -GeForce GTX 1050Ti | 185.00 | Gigabyte
--Impresora HP Laserjet Pro M26nw | 180.00 | Hewlett-Packard
-+nombre | precio
-+GeForce GTX 1050Ti | 185.00
-+GeForce GTX 1080 Xtreme | 755.00
-+Monitor 24 LED Full HD | 202.00
-+Monitor 27 LED Full HD | 245.99
-+Portátil Yoga 520 | 559.00
-+Portátil Ideapd 320 | 444.00
-+Impresora HP Laserjet Pro M26nw | 180.00
+ Impresora HP Laserjet Pro M26nw | 180.00 | Hewlett-Packard
 ```
 
-⏱ Tiempo: 0.35 ms
+⏱ Tiempo: 0.28 ms
 ✅ Se usó índice(s) en la consulta: codigo_fabricante, PRIMARY
 
 ---
 
-## ❌ Query 33: Incorrecto
-```diff
---- 
-+++ 
-@@ -1,4 +1,4 @@
--codigo | nombre
-+Codigo | Fabricante
- 1.00 | Asus
- 2.00 | Lenovo
- 3.00 | Hewlett-Packard
-```
+## ✅ Query 33: Correcto
 
-⏱ Tiempo: 0.35 ms
+⏱ Tiempo: 0.28 ms
 ✅ Se usó índice(s) en la consulta: codigo_fabricante, PRIMARY
 
 ---
 
-## ❌ Query 34: Incorrecto
-```diff
---- 
-+++ 
-@@ -1,4 +1,4 @@
--fabricante | producto
-+Fabricante | Producto
- Asus | Monitor 27 LED Full HD
- Asus | Monitor 24 LED Full HD
- Lenovo | Portátil Ideapd 320
-```
+## ✅ Query 34: Correcto
 
-⏱ Tiempo: 0.36 ms
+⏱ Tiempo: 0.30 ms
 ✅ Se usó índice(s) en la consulta: codigo_fabricante
 
 ---
 
-## ❌ Query 35: Incorrecto
-```diff
---- 
-+++ 
-@@ -1,3 +1,3 @@
--fabricante
-+Fabricante
- Huawei
- Xiaomi
-```
+## ✅ Query 35: Correcto
 
-⏱ Tiempo: 0.33 ms
+⏱ Tiempo: 0.30 ms
 ✅ Se usó índice(s) en la consulta: codigo_fabricante
 
 ---
 
 ## ✅ Query 36: Correcto
 
-⏱ Tiempo: 0.33 ms
+⏱ Tiempo: 0.30 ms
 ✅ Se usó índice(s) en la consulta: codigo_fabricante
-
-🚨 **Problemas detectados:**
-⚠️ Evitar `SELECT *`. Usar solo las columnas necesarias.
 
 ---
 
 ## ✅ Query 37: Correcto
 
-⏱ Tiempo: 0.34 ms
+⏱ Tiempo: 0.32 ms
 ✅ Se usó índice(s) en la consulta: codigo_fabricante
-
-🚨 **Problemas detectados:**
-⚠️ Evitar `SELECT *`. Usar solo las columnas necesarias.
 
 ---
 
@@ -636,7 +528,7 @@
 +Portátil Yoga 520 | 559.00
 ```
 
-⏱ Tiempo: 0.31 ms
+⏱ Tiempo: 0.30 ms
 ✅ Se usó índice(s) en la consulta: codigo_fabricante, PRIMARY
 
 ---
@@ -646,13 +538,12 @@
 --- 
 +++ 
 @@ -1,2 +1,2 @@
--nombre
+ nombre
 -Impresora HP Deskjet 3720
-+Producto | Precio
-+Portátil Ideapd 320 | 444.00
++Portátil Ideapd 320
 ```
 
-⏱ Tiempo: 0.30 ms
+⏱ Tiempo: 0.28 ms
 ✅ Se usó índice(s) en la consulta: codigo_fabricante, PRIMARY
 
 ---
@@ -671,23 +562,14 @@
 +Portátil Ideapd 320
 ```
 
-⏱ Tiempo: 0.33 ms
+⏱ Tiempo: 0.32 ms
 ✅ Se usó índice(s) en la consulta: codigo_fabricante, PRIMARY
 
 ---
 
-## ❌ Query 41: Incorrecto
-```diff
---- 
-+++ 
-@@ -1,2 +1,2 @@
--codigo | nombre | precio | codigo_fabricante
--7.00 | Monitor 27 LED Full HD | 245.99 | 1.00
-+Average (€)
-+224.00
-```
+## ✅ Query 41: Correcto
 
-⏱ Tiempo: 0.32 ms
-✅ Se usó índice(s) en la consulta: codigo_fabricante
+⏱ Tiempo: 0.33 ms
+✅ Se usó índice(s) en la consulta: codigo_fabricante, PRIMARY
 
 ---
